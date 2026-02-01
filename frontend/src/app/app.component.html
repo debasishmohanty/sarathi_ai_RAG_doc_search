@@ -1,0 +1,145 @@
+<div class="chat-container">
+  <div class="header">
+    <h1>🌐 Content Q&A & Summarizer</h1>
+    <div class="status" [class.connected]="serverConnected">
+      <span class="status-dot"></span>
+      {{ serverConnected ? "Connected" : "Disconnected" }}
+    </div>
+  </div>
+
+  <div class="main-content">
+    <!-- Left Panel: Content Loader -->
+    <div class="left-panel">
+      <!-- Input Tabs -->
+      <div class="input-tabs">
+        <button
+          class="tab-btn"
+          [class.active]="!contentLoaded"
+          (click)="contentLoaded = false"
+        >
+          🌐 Website
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="contentLoaded && contentType === 'document'"
+          (click)="contentLoaded = false"
+        >
+          📄 Document
+        </button>
+      </div>
+
+      <!-- URL/Document Input Section -->
+      <div class="input-section">
+        <div class="input-mode-website">
+          <h2>Load Website</h2>
+          <div class="input-group">
+            <input
+              type="url"
+              placeholder="https://example.com"
+              [(ngModel)]="urlInput"
+              (keyup.enter)="loadWebsite()"
+              [disabled]="isLoading || !serverConnected"
+              class="url-input"
+            />
+            <button
+              (click)="loadWebsite()"
+              [disabled]="isLoading || !serverConnected || !urlInput.trim()"
+              class="load-btn"
+            >
+              {{ isLoading ? "Loading..." : "Load" }}
+            </button>
+          </div>
+        </div>
+
+        <div class="divider">or</div>
+
+        <div class="input-mode-document">
+          <h2>Upload Document</h2>
+          <div class="input-group file-upload">
+            <label class="file-label">
+              <input
+                #fileInput
+                type="file"
+                accept=".txt,.pdf,.doc,.docx"
+                (change)="onFileSelected($event)"
+                [disabled]="isLoading || !serverConnected"
+                class="file-input"
+              />
+              <span class="file-button">
+                {{ isLoading ? "Uploading..." : "Choose File" }}
+              </span>
+            </label>
+            <span class="file-info">TXT, PDF, DOC, DOCX</span>
+          </div>
+        </div>
+
+        <!-- Loaded Content Info -->
+        <div *ngIf="contentLoaded" class="content-info">
+          <div class="info-item">
+            <span *ngIf="contentType === 'website'" class="info-badge">📍 {{ hostname }}</span>
+            <span *ngIf="contentType === 'document'" class="info-badge">📄 {{ filename }}</span>
+            <span *ngIf="ragModeEnabled" class="rag-badge">🔍 RAG Enabled</span>
+            <span *ngIf="!ragModeEnabled" class="context-badge">📋 Context Mode</span>
+          </div>
+          <button (click)="generateSummary()" [disabled]="isLoading" class="summary-btn">
+            📝 Generate Summary
+          </button>
+        </div>
+
+        <!-- Summary Display -->
+        <div *ngIf="showSummary && summary" class="summary-section">
+          <div class="summary-header">
+            <h3>📝 Summary</h3>
+            <button (click)="showSummary = false" class="close-btn">✕</button>
+          </div>
+          <div class="summary-content">{{ summary }}</div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!contentLoaded" class="empty-state-left">
+          <div class="empty-icon">📄</div>
+          <p>No content loaded</p>
+          <p class="hint">Load a website or upload a document</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Chat -->
+    <div class="right-panel" *ngIf="contentLoaded">
+      <div class="chat-section">
+        <!-- Messages -->
+        <div class="messages">
+          <div
+            *ngFor="let message of messages"
+            [class]="'message message-' + message.type"
+          >
+            <div class="message-content">{{ message.content }}</div>
+            <div class="message-time">{{ message.timestamp | date: "HH:mm" }}</div>
+          </div>
+          <div *ngIf="isLoading" class="message message-system">
+            <div class="message-content">🤔 Thinking...</div>
+          </div>
+        </div>
+
+        <!-- Question Input -->
+        <div class="input-group question-input">
+          <textarea
+            placeholder="Ask a question..."
+            [(ngModel)]="questionInput"
+            (keypress)="onKeyPress($event)"
+            [disabled]="isLoading"
+            rows="2"
+            class="question-textarea"
+          ></textarea>
+          <button
+            (click)="sendQuestion()"
+            [disabled]="isLoading || !questionInput.trim()"
+            class="send-btn"
+          >
+            {{ isLoading ? "..." : "Send" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
