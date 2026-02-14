@@ -28,7 +28,7 @@ app.use(express.json({ limit: "50mb" }));
 
 // Serve static files from Angular build in production
 if (process.env.NODE_ENV === 'production') {
-  const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'dist', 'langchain-chat-frontend', 'browser');
+  const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'dist', 'langchain-chat', 'browser');
   app.use(express.static(frontendBuildPath));
 }
 
@@ -316,7 +316,7 @@ app.get("/api/health", (req: Request, res: Response) => {
 // Serve Angular app for all other routes in production
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req: Request, res: Response) => {
-    const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'dist', 'langchain-chat-frontend', 'browser', 'index.html');
+    const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'dist', 'langchain-chat', 'browser', 'index.html');
     res.sendFile(frontendBuildPath);
   });
 }
