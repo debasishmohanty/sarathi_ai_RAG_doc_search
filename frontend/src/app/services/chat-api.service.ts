@@ -43,7 +43,7 @@ export interface SessionInfo {
   providedIn: "root",
 })
 export class ChatApiService {
-  private apiUrl = "http://localhost:5000/api";
+  private apiUrl = "/api";
 
   constructor(private http: HttpClient) {}
 

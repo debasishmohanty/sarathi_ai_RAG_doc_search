@@ -57,7 +57,7 @@ export interface UserChatResponse {
   providedIn: "root",
 })
 export class AdminApiService {
-  private apiUrl = "http://localhost:5000/api/admin";
+  private apiUrl = "/api/admin";
 
   constructor(private http: HttpClient) {}
 
@@ -98,7 +98,7 @@ export class AdminApiService {
   providedIn: "root",
 })
 export class UserApiService {
-  private apiUrl = "http://localhost:5000/api/user";
+  private apiUrl = "/api/user";
 
   constructor(private http: HttpClient) {}
 
@@ -128,7 +128,7 @@ export class UserApiService {
 
   checkHealth(): Observable<{ status: string }> {
     return this.http.get<{ status: string }>(
-      "http://localhost:5000/api/health"
+      "/api/health"
     );
   }
 }
