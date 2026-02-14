@@ -6,35 +6,45 @@
   "type": "commonjs",
   "scripts": {
     "setup": "ts-node setup-env.ts",
-    "start": "npm run setup && ts-node src/chat.ts",
+    "start": "node --require ts-node/register src/server-admin-user.ts",
     "agent": "npm run setup && ts-node src/agent.ts",
     "server": "npm run setup && ts-node src/server.ts",
+    "server:admin-user": "npm run setup && node --require ts-node/register src/server-admin-user.ts",
     "frontend": "cd frontend && npm install && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "dev:admin-user": "concurrently \"npm run server:admin-user\" \"npm run frontend\"",
+    "heroku-postbuild": "cd frontend && npm install && npm run build",
+    "build": "cd frontend && npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@langchain/core": "^1.1.16",
-    "@langchain/openai": "^1.2.3",
     "@langchain/community": "^0.2.3",
+    "@langchain/core": "^1.1.16",
+    "@langchain/openai": "^1.2.4",
+    "@pinecone-database/pinecone": "^7.0.0",
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^4.22.1",
     "langchain": "^1.2.11",
     "mammoth": "^1.11.0",
+    "ml-distance": "^4.0.1",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.7.0",
+    "openai": "^6.17.0",
     "pdf-parse": "^1.1.4",
-    "ml-distance": "^4.0.1"
-  },
-  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/multer": "^2.0.0",
     "@types/node": "^25.0.10",
-    "@types/node-fetch": "^2.6.13",
-    "concurrently": "^8.2.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "@types/node-fetch": "^2.6.13"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

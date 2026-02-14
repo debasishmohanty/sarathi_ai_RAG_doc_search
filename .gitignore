@@ -23,9 +23,10 @@ out-tsc/
 
 # Angular
 /angular/dist/
+.angular/
+frontend/.angular/
 
 # Frontend
-frontend/dist/
 frontend/node_modules/
 
 # Logs
