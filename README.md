@@ -1,4 +1,39 @@
-# LangChain Website Q&A Chat Application
+# LangChain Projects - Document Q&A Systems
+
+This repository contains multiple document Q&A applications using LangChain and OpenAI.
+
+## 🎯 Quick Navigation
+
+### 🆕 **NEW: Document Q&A with Dual Admin/User Views**
+A complete system with separate admin dashboard for document management and user interface for Q&A.
+
+- **Start Here**: [START_HERE.md](START_HERE.md)
+- **Quick Start**: [QUICK_START.md](QUICK_START.md)
+- **Full Reference**: [FINAL_VERIFICATION.md](FINAL_VERIFICATION.md)
+- **API Documentation**: [API_REFERENCE.md](API_REFERENCE.md)
+
+**Start in 30 seconds:**
+```bash
+npm run dev:admin-user
+# Then open http://localhost:4200
+```
+
+---
+
+### 🔧 Original Systems
+- **Website Q&A Chat**: `npm start` - Interactive CLI for website content
+- **Tool Agent**: `npm run agent` - LangChain agent with tool calling
+- **Document Upload Chat**: `npm run server` - Web UI for document Q&A
+
+---
+
+## 📚 Complete Project Index
+
+See [INDEX.md](INDEX.md) for comprehensive navigation guide.
+
+---
+
+## 🏗️ LangChain Website Q&A Chat Application (Original)
 
 A full-stack application with an Express backend and Angular frontend that uses LangChain and OpenAI to answer questions about website content.
 
