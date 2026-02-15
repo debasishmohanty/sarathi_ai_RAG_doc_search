@@ -11,6 +11,7 @@ A complete system with separate admin dashboard for document management and user
 - **Quick Start**: [QUICK_START.md](QUICK_START.md)
 - **Full Reference**: [FINAL_VERIFICATION.md](FINAL_VERIFICATION.md)
 - **API Documentation**: [API_REFERENCE.md](API_REFERENCE.md)
+- **Application Live URL**: https://hr-pilot-1c52e152d705.herokuapp.com/
 
 **Start in 30 seconds:**
 ```bash
